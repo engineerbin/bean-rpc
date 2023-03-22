@@ -1,4 +1,4 @@
-package com.binwu.common;
+package com.binwu.annotation;
 
 
 import java.lang.annotation.*;
