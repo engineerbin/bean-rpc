@@ -6,9 +6,6 @@ public class NettyServerMain {
     public static void main(String[] args) {
         AnnotationConfigApplicationContext applicationContext =
                 new AnnotationConfigApplicationContext(NettyServerMain.class);
-        //just a test
-        
-
 
 
 
