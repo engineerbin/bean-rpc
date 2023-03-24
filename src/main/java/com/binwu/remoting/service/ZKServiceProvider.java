@@ -43,4 +43,8 @@ public class ZKServiceProvider {
         log.info("Add service: {} and interfaces:{}", name, config.getService().getClass().getInterfaces());
     }
 
+    public Object getService(String serviceName){
+        return serviceMap.get(serviceName);
+    }
+
 }
