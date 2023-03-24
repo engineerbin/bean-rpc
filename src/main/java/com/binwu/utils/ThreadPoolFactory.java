@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 public class ThreadPoolFactory {
@@ -35,4 +36,19 @@ public class ThreadPoolFactory {
     private static ThreadFactory createThreadFactory(String name, boolean daemon) {
         return new ThreadFactoryBuilder().setNameFormat(name + "-%d").setDaemon(daemon).build();
     }
+
+    public static void shutDownAllThreadPool() {
+        log.info("call shutDownAllThreadPool method");
+        THREAD_POOLS.entrySet().stream().forEach(entry -> {
+            ExecutorService executorService = entry.getValue();
+            executorService.shutdown();
+            try {
+                executorService.awaitTermination(10, TimeUnit.SECONDS);
+            } catch (Exception e) {
+                executorService.shutdown();
+            }
+        });
+    }
+
+
 }

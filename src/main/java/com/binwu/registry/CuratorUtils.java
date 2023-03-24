@@ -10,6 +10,7 @@ import org.apache.curator.framework.CuratorFrameworkFactory;
 import org.apache.curator.framework.imps.CuratorFrameworkState;
 import org.apache.curator.retry.ExponentialBackoffRetry;
 
+import java.net.InetSocketAddress;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -40,4 +41,18 @@ public class CuratorUtils {
         zkClient.start();
         return zkClient;
     }
+
+    public static void clearRegistry(CuratorFramework zkClient,
+                                     InetSocketAddress inetSocketAddress) {
+        REGISTERED_PATH_SET.stream().parallel().forEach(p -> {
+            try {
+                if (p.endsWith(inetSocketAddress.toString())) {
+                    zkClient.delete().forPath(p);
+                }
+            } catch (Exception e) {
+                log.error("clear registry for path [{}] fail", p);
+            }
+        });
+    }
+
 }
