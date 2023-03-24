@@ -1,7 +1,7 @@
 package com.binwu.remoting.transport.server;
 
 
-import com.binwu.tool.ThreadPoolFactory;
+import com.binwu.utils.ThreadPoolFactory;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.ExecutorService;

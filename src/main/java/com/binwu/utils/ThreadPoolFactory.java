@@ -1,4 +1,4 @@
-package com.binwu.tool;
+package com.binwu.utils;
 
 
 import com.google.common.collect.Maps;
