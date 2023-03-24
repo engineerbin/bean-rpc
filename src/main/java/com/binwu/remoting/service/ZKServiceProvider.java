@@ -1,5 +1,6 @@
 package com.binwu.remoting.service;
 
+import com.binwu.extension.ExtensionLoader;
 import com.binwu.registry.ServiceRegistry;
 import com.google.common.collect.Maps;
 import lombok.extern.slf4j.Slf4j;
@@ -17,8 +18,7 @@ public class ZKServiceProvider {
     public ZKServiceProvider() {
         serviceMap = Maps.newConcurrentMap();
         registeredService = ConcurrentHashMap.newKeySet();
-
-
+        serviceRegistry = ExtensionLoader.getExtensionLoader(ServiceRegistry.class).getExtension("zk");
     }
 
 }
