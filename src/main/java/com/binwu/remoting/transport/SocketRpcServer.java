@@ -31,17 +31,16 @@ public class SocketRpcServer {
     }
 
     public void start() {
-        try(ServerSocket serverSocket = new ServerSocket()) {
+        try (ServerSocket serverSocket = new ServerSocket()) {
             String host = InetAddress.getLocalHost().getHostAddress();
-            serverSocket.bind(new InetSocketAddress(host,PORT));
+            serverSocket.bind(new InetSocketAddress(host, PORT));
             CustomShutdownHook.getCustomShutdownHook().clearAll();
-            Socket socket;
-            while ((socket = serverSocket.accept())!=null){
-                log.info("client connected [{}]",socket.getInetAddress());
-
-
+            Socket socket = null;
+            while ((socket = serverSocket.accept()) != null) {
+                log.info("client connected [{}]", socket.getInetAddress());
+                threadPool.execute(new SocketRpcRequestHandlerRunnable(socket));
             }
-
+            threadPool.shutdown();
         } catch (Exception e) {
             log.error("occur exception:", e);
         }

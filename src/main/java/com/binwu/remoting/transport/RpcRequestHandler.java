@@ -29,7 +29,6 @@ public class RpcRequestHandler {
         }catch (Exception e){
 
         }
-
         return result;
     }
 
